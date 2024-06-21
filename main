@@ -1,8 +1,8 @@
 import argparse
 from torch import nn, optim
 import SFE_Former
-from Util import train_test_util_binary
-from Util.utils import DepData
+import train_test_util_binary
+from utils import DepData
 import torch
 from torchvision import transforms
 
