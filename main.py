@@ -18,7 +18,7 @@ parser.add_argument('--batch_size', type=int, default=4)
 parser.add_argument('--lr', type=float, default=1e-4)
 parser.add_argument('--epoch', type=int, default=100)
 parser.add_argument('--model_id', type=str, default='define your model name')
-parser.add_argument('--log_path', default='/public/home/acomerinca/ll/SFE_Former/log.txt', type=str, help='log file path to save result')
+parser.add_argument('--log_path', default='', type=str, help='log file path to save result')
 parser.add_argument('--model_save_path', type=str, default='where the trained model is saved, a folder path')
 args = parser.parse_args()
 
@@ -39,17 +39,12 @@ if __name__ == '__main__':
 
 
     for i in range(5):
-        # print('第{}折開始'.format(i+1))
-        log_file = open(log_path, mode='a+')
-        log_file.write('第{}折开始：'.format(i))
-        log_file.write('\n')
-        log_file.close()
         train_data_set = DepData(
-            r"/public/home/acomerinca/ll/data_depressed_5k/Fold_{}/train".format(i+1),
+            r"data_depressed_5k/Fold_{}/train".format(i+1),
             transform=data_transform
         )
         test_data_set =  DepData(
-            r"/public/home/acomerinca/ll/data_depressed_5k/Fold_{}/train".format(i+1),
+            r"\data_depressed_5k/Fold_{}/train".format(i+1),
             transform=data_transform
         )
         Loss = nn.CrossEntropyLoss()
@@ -66,4 +61,3 @@ if __name__ == '__main__':
                                            eval_num=1,
                                            log_path=args.log_path,
                                            model_save_path=args.model_save_path)
-
