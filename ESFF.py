@@ -114,15 +114,3 @@ class ESFF(nn.Module):
         x = self.classifiers(x)
 
         return x
-
-
-
-
-if __name__ == '__main__':
-    # (B, num_token, C)   p:patch的尺寸, (H*W)/(p*p)=(H/p)*(W/p)=num_token 一般情况下,H=W,所以平方根: num_token**(-0.5)==(H/p)==(W/p)==每一行/列有多少个patch
-    # x = torch.randn(1, 196, 64)
-    # x = torch.randn(112,14,14,64)
-    x = torch.randn(28, 14, 14, 256)
-    Model = HiLo(dim=256, num_heads=8, window_size=2, alpha=0.5)
-    out = Model(x)
-    print(out)
