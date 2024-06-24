@@ -1,3 +1,5 @@
+from torch import nn
+
 class DA(nn.Module):
 
     def __init__(self, head_dim, qk_scale=None, attn_drop=0, kernel_size=3, dilation=1):
