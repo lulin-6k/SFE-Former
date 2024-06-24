@@ -1,10 +1,8 @@
-import torch
 from torch import nn
 
-
-class Dence_Connect(nn.Module):
+class AM(nn.Module):
     def __init__(self, channel_list=[64, 128, 256, 512]):
-        super(Dence_Connect, self).__init__()
+        super(AM, self).__init__()
         self.ConvKs = nn.ModuleList([])
         for i in range(len(channel_list) - 1):
             self.ConvKs.append(
@@ -16,8 +14,7 @@ class Dence_Connect(nn.Module):
             )
 
     def forward(self, feature_list):
-        # 传入特征图形状为B*T，C，H，W
-        dence_feature = None  # 初始化Dence_Feature
+        dence_feature = None
         for i in range(len(feature_list) - 1):
             if dence_feature is None:
                 out_convk = self.ConvKs[i](feature_list[i])
@@ -25,8 +22,5 @@ class Dence_Connect(nn.Module):
             else:
                 out_convk = self.ConvKs[i](feature_list[i] + dence_feature)
                 dence_feature = out_convk
-        # 输出特征图形状为B*T，C，H，W
-
         out = dence_feature + feature_list[-1]
-        # print(out.shape)  [28, 512, 7, 7]
         return out
