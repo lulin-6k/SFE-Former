@@ -3,9 +3,10 @@ import torch
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 from sklearn.metrics import accuracy_score, precision_score, f1_score, recall_score, confusion_matrix
+
 torch.autograd.set_detect_anomaly(True)
 def train_class(epoch_num, train_data_set, test_data_set, batch_size=4, net=None, Loss=None, optimizer=None,
-                is_use_gpu=True, model_id=None, eval_num=1, log_path='', model_save_path='', canshu1=None, canshu2=None):
+                is_use_gpu=True, model_id=None, eval_num=1, log_path='', model_save_path='', C1=None, C2=None):
     if is_use_gpu:
         device = torch.device('cuda:0')
     else:
@@ -23,7 +24,7 @@ def train_class(epoch_num, train_data_set, test_data_set, batch_size=4, net=None
             Y = Y.to(device)
             out1, out2 = net(X)
             optimizer.zero_grad()
-            loss = canshu1*Loss(out1, Y.view(1, -1)[0]) + canshu2*Loss(out2, Y.view(1, -1)[0])
+            loss = C1*Loss(out1, Y.view(1, -1)[0]) + C2*Loss(out2, Y.view(1, -1)[0])
             loss.backward()
             optimizer.step()
             loss_epoch += loss
@@ -68,12 +69,10 @@ def test_class(data_set, batch_size=1, net=None, is_use_gpu=True, model_id=None,
         predict_total_1.append(max_indices_1.cpu().detach().numpy())
         predict_total_2.append(max_indices_2.cpu().detach().numpy())
 
-    # Convert lists to numpy arrays
     label_totals = np.concatenate(label_totals, axis=0)
     predict_total_1 = np.concatenate(predict_total_1, axis=0)
     predict_total_2 = np.concatenate(predict_total_2, axis=0)
 
-    # Calculate metrics for each output separately
     accuracy_1 = accuracy_score(label_totals, predict_total_1)
     precision_1 = precision_score(label_totals, predict_total_1, average='weighted')
     recall_1 = recall_score(label_totals, predict_total_1, average='weighted')
