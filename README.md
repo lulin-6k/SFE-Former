@@ -1,4 +1,4 @@
-# SFE-Former: Depression and Anxiety Detection from Serialized Facial Expressions  
+# SFE-Former  
 Thank you for your interest in our research.  
 SFE-Former is an excellent model for Depression and Anxiety recognition based on facial expression.  
 The code for the relevant components can be found in the Model folder.  
