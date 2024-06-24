@@ -1,4 +1,5 @@
 import argparse
+import torch
 from torch import nn, optim
 import SFE_Former
 import train_test_util_binary
