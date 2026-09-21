@@ -1,8 +1,8 @@
 # SFE-Former  
 Thank you for your interest in our research.  
 SFE-Former is an excellent model for Depression and Anxiety recognition based on facial expression.  
-The core model implementation is provided in the Model folder. 
-The code for other components, including AM, SU, ACIN, and ESFF, is available upon request via the email below.
+The core model implementation is provided in the Model folder.  
+The code for other components, including AM, SU, ACIN, and ESFF, is available upon request via the email below.  
 The code for training and testing can be found in the Util folder.  
 Contact details: lulin6000@outlook.com  
 
